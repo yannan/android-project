@@ -18,10 +18,10 @@
 
 ## 当前阶段
 
-- 当前阶段：Phase 2 — 稳定性与收敛（**T19 暂缓**，推进 **T20**）
+- 当前阶段：Phase 2 — 入口与配置收敛（**T19 暂缓**，**T20 已完成**，推进 **T21**）
 - 当前负责人：AI / 开发协作
 - 最后更新时间：2026-05-03
-- 下一步优先：**T20** 补齐可靠性（超时、重试、取消、日志导出/追踪）；**T19** 模板功能按用户选择暂缓，保留待办
+- 下一步优先：**T21** 弱化 `ChannelManager`、收敛 `TaskSource`；**T19** 模板仍暂缓
 
 ## 执行原则
 
@@ -58,7 +58,7 @@
 | T17 | 已完成 | 实现 `HistoryManager` 与 Room 表结构：任务摘要、步骤、截图、耗时、最终结果 | 历史存储层 | T07 | 2026-05-03 | Cursor | Room 2.7 + KSP 2.3.7；`task_history` / `task_history_step`；`HistoryManager` 单线程写入；`take_screenshot` 成功时复制 PNG 至 `files/task_history/{runId}/`；`TaskOrchestrator` 全流程挂钩；`pluginManagement` 优先 Maven Central 以解析 KSP。验证：`:app:compileDebugKotlin` 通过 |
 | T18 | 已完成 | 实现任务历史页与详情页：列表、步骤流、截图回放 | 历史页面 | T17 | 2026-05-03 | Cursor | `TaskHistoryListActivity` / `TaskHistoryDetailActivity`；首页卡片 + 设置 Device 首项入口；步骤卡片 + 横滑缩略显 + 全屏回看（Glide）；`recyclerview` 1.3.2。验证：`:app:compileDebugKotlin` 通过 |
 | T19 | 待办 | 实现 `TemplateManager` 与模板快捷发起入口 | 模板功能 | T17 | 2026-05-03 |  | **暂缓**：用户确认先跳过；不阻塞主链路与 T20；后续若要收口集成验收（T23）再评估是否补做 |
-| T20 | 待办 | 补齐可靠性：任务超时、失败重试、任务取消、日志导出/追踪 | 稳定性与可观测性 | T07, T12, T18 | 2026-05-01 |  |  |
+| T20 | 已完成 | 补齐可靠性：任务超时、失败重试、任务取消、日志导出/追踪 | 稳定性与可观测性 | T07, T12, T18 | 2026-05-03 | Cursor | 墙钟超时（`taskTimeoutSeconds` 元数据 / `KVUtils` 默认）；`maxRetries`≤5 全任务重跑；回调 `guardActive` 防与取消竞态；`DeviceTaskGateway` 状态上报 4 次指数退避；设置「Export diagnostics」；`TaskRuntimeMetadataKeys`、`DiagnosticsExporter`。验证：`:app:compileDebugKotlin` |
 | T21 | 待办 | 清理旧入口：弱化 `ChannelManager`，新建 `TaskSource` 主路径；下线旧 IM 渠道主入口 | 入口收敛 | T07, T11 | 2026-05-01 |  |  |
 | T22 | 待办 | 清理旧配置：移除本地 `OpenAI/Anthropic/BaseURL` 手工配置入口，仅保留 debug 能力 | 配置入口收敛 | T13 | 2026-05-01 |  |  |
 | T23 | 待办 | 完成集成验收：绑定、接单、执行、历史、设置五块主流程全量回归 | 验收记录与问题清单 | T16, T18, T19, T20, T21, T22 | 2026-05-03 |  | **T19 暂缓**时验收清单可先覆盖其余项，模板能力单独备注为「未交付/不适用」 |
@@ -105,4 +105,5 @@
 | 2026-05-03 | Cursor | **T15**：`SkillRemoteLoader` 远端 ZIP 下载与 SHA-256 校验、`SkillManager.ensureSkillPackages` / `TaskOrchestrator` 前置装载、Mock `/api/v1/skills/*/meta|download`、`KVUtils` 技能包 checksum 缓存 |
 | 2026-05-03 | Cursor | **T17**：`HistoryManager` + Room（`ApkclawHistoryDatabase`）、步骤与截图路径、`TaskOrchestrator`/取消链路持久化；Gradle 引入 KSP 2.3.7、Room 2.7；`settings` 插件仓库优先 Central/Google |
 | 2026-05-03 | Cursor | **T18**：任务历史列表/详情 UI、截图横滑与全屏回放；首页与设置入口；依赖 `androidx.recyclerview` |
+| 2026-05-03 | Cursor | **T20**：任务墙钟超时与失败/弹窗阻塞重试、`cancelWallClockTimeout`、网关状态上报重试、`DiagnosticsExporter`、设置导出入口 |
 | 2026-05-03 | Cursor | **T19 暂缓**：按用户选择先跳过模板能力；当前阶段切换为优先 **T20**；`T19`/`T23` 备注同步说明验收策略 |
