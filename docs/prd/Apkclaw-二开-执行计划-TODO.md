@@ -62,7 +62,7 @@
 | T21 | 待办 | 清理旧入口：弱化 `ChannelManager`，新建 `TaskSource` 主路径；下线旧 IM 渠道主入口 | 入口收敛 | T07, T11 | 2026-05-01 |  |  |
 | T22 | 待办 | 清理旧配置：移除本地 `OpenAI/Anthropic/BaseURL` 手工配置入口，仅保留 debug 能力 | 配置入口收敛 | T13 | 2026-05-01 |  |  |
 | T23 | 待办 | 完成集成验收：绑定、接单、执行、历史、设置五块主流程全量回归 | 验收记录与问题清单 | T16, T18, T19, T20, T21, T22 | 2026-05-01 |  |  |
-| T24 | 已完成 | 对齐 LangChain4j Skills Tool Mode：`activate_skill`/`read_skill_resource` + 技能目录 XML + 合并设备 ToolExecutor | `langchain4j-skills` 集成、`SkillAugmentation.mergedTools` | T14 | 2026-05-03 | Cursor | 依赖 `langchain4j-skills` 1.12.2-beta22；安装包生成 `SKILL.md`（YAML front matter）；`SkillManager` 构建 `dev.langchain4j.skills.Skill`/`Skills`，系统提示嵌入 `Skills.formatAvailableSkills`；设备工具经 `LangChain4jToolBridge.buildDeviceToolProviderResult`；`LangChainSkillRuntime.mergeDeviceAndSkills`；`TaskOrchestrator` 传入 `taskId` 作 tool memory id |
+| T24 | 已完成 | 对齐 LangChain4j Skills Tool Mode：`activate_skill`/`read_skill_resource` + 技能目录 XML + 合并设备 ToolExecutor | `langchain4j-skills` 集成、`SkillAugmentation.mergedTools` | T14 | 2026-05-03 | Cursor | 依赖 `langchain4j-skills` 1.12.2-beta22；安装包生成 `SKILL.md`；`Skills.formatAvailableSkills` + `mergeDeviceAndSkills`；**与官方教程/version 的差异与限制**见 `docs/prd/Apkclaw-LangChain4j-Skills-与官方差异.md` |
 
 ## 更新记录
 
@@ -102,3 +102,4 @@
 | 2026-05-03 | Cursor | 新增根目录 `AGENTS.md`（Cursor 标准入口），协作规则仅以该文件为准；`agent.md` 改为同名符号链接；Todo「版本控制」条款改为指向 `AGENTS.md`/`agent.md` |
 | 2026-05-03 | Cursor | 完成 T14：技能基础模块本地 manifest/skill.md 解析、仓库索引、`SkillRenderer` 聚合注入与 `allowedTools` 工具白名单；编译 `:app:compileDebugKotlin` 通过 |
 | 2026-05-03 | Cursor | 完成 **T24**：集成 `langchain4j-skills`（Agent Skills Tool Mode）；`Skills.formatAvailableSkills` + `mergeDeviceAndSkills`；`SkillAugmentation.mergedTools`；`SkillManager` 安装生成 `SKILL.md` |
+| 2026-05-03 | Cursor | **T24 补充**：新增《Apkclaw-LangChain4j-Skills-与官方差异.md》，记录 skill-scoped tools / AiServices / 版本基线与实现的差异 |
