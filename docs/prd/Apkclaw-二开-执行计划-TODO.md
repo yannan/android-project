@@ -18,10 +18,10 @@
 
 ## 当前阶段
 
-- 当前阶段：Phase 2 — 技能系统（T14 起）
+- 当前阶段：Phase 2 — 技能系统（T14 已完成，推进 T15）
 - 当前负责人：AI / 开发协作
 - 最后更新时间：2026-05-03
-- 下一步优先：**T14** `SkillManager` / `SkillRepository`
+- 下一步优先：**T15** 技能下载、校验与装载链路
 
 ## 执行原则
 
@@ -52,7 +52,7 @@
 | T11 | 已完成 | 完成双模式决策与任务覆盖：任务指定模式优先，本地默认模式次之，默认不自动回退 | 双模式决策逻辑 | T09, T10 | 2026-05-03 | Cursor | 代码侧继承 Codex 成果；直连验证与 `resolveExecutorSelection` 对齐；fallback **场景 A/B** 均已在 vivo V1838A 上验证（见《Apkclaw-双模式验证记录》fallback 表与 `dual_mode_fallback_smoke_*.md`） |
 | T12 | 已完成 | 补齐双模式测试：`tap/swipe/open_app/screenshot/key/shell` 的行为一致性验证 | 测试用例与验证记录 | T11 | 2026-05-03 | Cursor | 六用例矩阵已回填；ACCESSIBILITY `screenshot` 在 Android 10 边界失败已标注；fallback A（回退无障碍）与 B（Shizuku 基线）均已 SUCCESS 落表 |
 | T13 | 已完成 | 实现 `RemoteAgentConfigProvider`：启动拉取、缓存回退、热更新 `TaskOrchestrator` 配置 | 远端模型配置能力 | T07 | 2026-05-03 | Cursor | `RemoteAgentConfigProvider`：`GET /api/v1/agent/config`、MMKV 缓存、`AppViewModel` 合并 local+缓存构建 `AgentConfig`；`afterInit`/`refreshDeviceGateway` 后台拉取；指纹变更时 `updateAgentConfig`；`KVUtils.hasLlmConfig` 支持缓存内 `apiKey`（Mock 扩展）；Mock HTTP 增加 `agent/config`；冷启动无 LLM 也走 `afterInit` 以便网关注册后拉取 |
-| T14 | 待办 | 实现 `SkillManager`、`SkillRepository`、`SkillRenderer`，支持 `manifest.json + skill.md + assets` | 技能系统基础模块 | T13 | 2026-05-01 |  |  |
+| T14 | 已完成 | 实现 `SkillManager`、`SkillRepository`、`SkillRenderer`，支持 `manifest.json + skill.md + assets` | 技能系统基础模块 | T13 | 2026-05-03 | Cursor | 交付：`skill/`（`SkillManifest`/`SkillRepository`/`SkillRenderer`/`SkillManager`/`SkillAugmentation`），`SkillManager.installFromUnpacked` 校验并安装至 `files/skills/{id}`；`TaskOrchestrator`→`SkillManager.resolveAugmentation`→`DefaultAgentService`/`LangChain4jToolBridge.buildToolSpecificationsForNames`（白名单附带 `finish`+`get_screen_info`）；`ClawApplication` 初始化 `SkillManager`。HTTP zip 下载与校验在 T15 |
 | T15 | 待办 | 接入技能下载与缓存：按 `skillPackageId` 下载、校验、装载，并按 `allowedTools` 裁剪工具白名单 | 技能装载链路 | T14 | 2026-05-01 |  |  |
 | T16 | 待办 | 先落地微信 skill，验证消息发送/自动回复场景 | 微信 skill MVP | T15 | 2026-05-01 |  |  |
 | T17 | 待办 | 实现 `HistoryManager` 与 Room 表结构：任务摘要、步骤、截图、耗时、最终结果 | 历史存储层 | T07 | 2026-05-01 |  |  |
@@ -99,3 +99,4 @@
 | 2026-05-03 | Cursor | 将通过 adb 把设备 `verification/` 目录全部拉取至仓库 `verification-export/`（18 个文件），并在《Apkclaw-双模式验证记录》中注明归档路径 |
 | 2026-05-03 | Cursor | 完成 T13：`RemoteAgentConfigProvider`、`GET /api/v1/agent/config` MMKV 缓存与热更新；Mock 服务增加 `agent/config`；`ClawApplication` 无本地 LLM 时也执行 `afterInit` 以便网关注册后拉取远端配置 |
 | 2026-05-03 | Cursor | 新增根目录 `AGENTS.md`（Cursor 标准入口），协作规则仅以该文件为准；`agent.md` 改为同名符号链接；Todo「版本控制」条款改为指向 `AGENTS.md`/`agent.md` |
+| 2026-05-03 | Cursor | 完成 T14：技能基础模块本地 manifest/skill.md 解析、仓库索引、`SkillRenderer` 聚合注入与 `allowedTools` 工具白名单；编译 `:app:compileDebugKotlin` 通过 |
