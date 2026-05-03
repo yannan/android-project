@@ -33,7 +33,7 @@
    - `最后更新`
    - `完成 Agent`
    - `备注`
-5. **版本控制**：任务交付的代码或文档变更在更新本文件前后，应按 `agent.md` 要求执行 **git commit**；可选在 `备注` 或下方「更新记录」中顺带记下本次关联的 commit 摘要，便于回溯。
+5. **版本控制**：任务交付的代码或文档变更在更新本文件前后，应按 **`AGENTS.md`**（等价路径 `agent.md`）要求执行 **git commit**；可选在 `备注` 或下方「更新记录」中顺带记下本次关联的 commit 摘要，便于回溯。
 
 ## Todo List
 
@@ -98,3 +98,4 @@
 | 2026-05-03 | Cursor | 真机完成 fallback 场景 B：`dual_mode_fallback_smoke_20260503_121927.md`（`resolved=SHIZUKU`，`fallbackApplied=false`），已将 T11/T12 标为已完成 |
 | 2026-05-03 | Cursor | 将通过 adb 把设备 `verification/` 目录全部拉取至仓库 `verification-export/`（18 个文件），并在《Apkclaw-双模式验证记录》中注明归档路径 |
 | 2026-05-03 | Cursor | 完成 T13：`RemoteAgentConfigProvider`、`GET /api/v1/agent/config` MMKV 缓存与热更新；Mock 服务增加 `agent/config`；`ClawApplication` 无本地 LLM 时也执行 `afterInit` 以便网关注册后拉取远端配置 |
+| 2026-05-03 | Cursor | 新增根目录 `AGENTS.md`（Cursor 标准入口），协作规则仅以该文件为准；`agent.md` 改为同名符号链接；Todo「版本控制」条款改为指向 `AGENTS.md`/`agent.md` |
