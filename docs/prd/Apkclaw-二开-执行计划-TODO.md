@@ -18,10 +18,10 @@
 
 ## 当前阶段
 
-- 当前阶段：Phase 2 — 入口与配置收敛（**T19 暂缓**，**T21 已完成**，推进 **T22**）
+- 当前阶段：Phase 2 — 集成验收筹备（**T19 暂缓**，**T21–T22 已完成**，推进 **T23**）
 - 当前负责人：AI / 开发协作
 - 最后更新时间：2026-05-03
-- 下一步优先：**T22** 清理本地手工 LLM 配置入口（仅保留 debug）；**T19** 模板仍暂缓
+- 下一步优先：**T23** 五块主流程全量验收；**T19** 模板仍暂缓不适用
 
 ## 执行原则
 
@@ -60,7 +60,7 @@
 | T19 | 待办 | 实现 `TemplateManager` 与模板快捷发起入口 | 模板功能 | T17 | 2026-05-03 |  | **暂缓**：用户确认先跳过；不阻塞主链路与 T20；后续若要收口集成验收（T23）再评估是否补做 |
 | T20 | 已完成 | 补齐可靠性：任务超时、失败重试、任务取消、日志导出/追踪 | 稳定性与可观测性 | T07, T12, T18 | 2026-05-03 | Cursor | 墙钟超时（`taskTimeoutSeconds` 元数据 / `KVUtils` 默认）；`maxRetries`≤5 全任务重跑；回调 `guardActive` 防与取消竞态；`DeviceTaskGateway` 状态上报 4 次指数退避；设置「Export diagnostics」；`TaskRuntimeMetadataKeys`、`DiagnosticsExporter`。验证：`:app:compileDebugKotlin` |
 | T21 | 已完成 | 清理旧入口：弱化 `ChannelManager`，新建 `TaskSource` 主路径；下线旧 IM 渠道主入口 | 入口收敛 | T07, T11 | 2026-05-03 | Cursor | `ImInboundTaskIngress` 收口 IM→编排器；`afterInit` 先启 `DeviceTaskGateway`；钉钉等五 Bot 迁至 `LegacyImBotsSettingsActivity`；`ChannelManager`、`TaskDispatcher`、`TaskSource` 注释标明主路径。本地请跑 `:app:compileDebugKotlin` 验证编译。|
-| T22 | 待办 | 清理旧配置：移除本地 `OpenAI/Anthropic/BaseURL` 手工配置入口，仅保留 debug 能力 | 配置入口收敛 | T13 | 2026-05-01 |  |  |
+| T22 | 已完成 | 清理旧配置：移除本地 `OpenAI/Anthropic/BaseURL` 手工配置入口，仅保留 debug 能力 | 配置入口收敛 | T13 | 2026-05-03 | Cursor | Release 隐藏设置「模型」分组；非 Debug 进入 `LlmConfigActivity` 即提示并退出；`KVUtils` 注释说明 KV 仍以网关下发/局域网为主。顺带修复 `LegacyImBotsSettingsActivity` KDoc。**验证**：`:app:compileDebugKotlin`、`compileReleaseKotlin` 通过 |
 | T23 | 待办 | 完成集成验收：绑定、接单、执行、历史、设置五块主流程全量回归 | 验收记录与问题清单 | T16, T18, T20, T21, T22 | 2026-05-03 |  | **T19 暂缓**；模板在验收中单列「不适用」|
 | T24 | 已完成 | 对齐 LangChain4j Skills Tool Mode：`activate_skill`/`read_skill_resource` + 技能目录 XML + 合并设备 ToolExecutor | `langchain4j-skills` 集成、`SkillAugmentation.mergedTools` | T14 | 2026-05-03 | Cursor | 依赖 `langchain4j-skills` 1.12.2-beta22；安装包生成 `SKILL.md`；`Skills.formatAvailableSkills` + `mergeDeviceAndSkills`；**与官方教程/version 的差异与限制**见 `docs/prd/Apkclaw-LangChain4j-Skills-与官方差异.md` |
 
@@ -108,3 +108,4 @@
 | 2026-05-03 | Cursor | **T20**：任务墙钟超时与失败/弹窗阻塞重试、`cancelWallClockTimeout`、网关状态上报重试、`DiagnosticsExporter`、设置导出入口 |
 | 2026-05-03 | Cursor | **T19 暂缓**：按用户选择先跳过模板能力；当前阶段切换为优先 **T20**；`T19`/`T23` 备注同步说明验收策略 |
 | 2026-05-03 | Cursor | **T21**：IM 编排入口收敛至 `ImInboundTaskIngress`，五类旧 Bot 设置迁至 `LegacyImBotsSettingsActivity`，`afterInit` 先启动设备任务网关 |
+| 2026-05-03 | Cursor | **T22**：Release 下线设置页手写 LLM 入口（`BuildConfig.DEBUG`）；`LlmConfigActivity` 门禁；局域网/远端合并不变 |
