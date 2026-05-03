@@ -92,7 +92,7 @@
 | --- | --- | --- | --- | --- | --- |
 | T23-I01 | 执行 | `dual_mode_matrix_summary_20260503_213835.md` 中 `screenshot / ACCESSIBILITY` 汇总行为 `SUCCESS`，但 raw status 明确显示 `[截屏{}]：失败`，最终说明为 Android 10 不支持该能力，属于“任务完成”与“用例通过”混淆 | Device Config → 一键跑双模式矩阵（vivo V1838A / Android 10，`allowModeFallback=false`）→ 查看导出的 `dual_mode_matrix_summary_20260503_213835.md` 第 16 行与第 97-101 行 | 中 | 打开 |
 | T23-I02 | 执行 | `dual_mode_matrix_summary_20260503_213835.md` 中 `shell / SHIZUKU` 汇总行为 `SUCCESS`，但 raw status 明确显示“当前可用工具中无执行 shell 命令的功能”，说明矩阵汇总未区分能力缺失与任务终态 | Device Config → 一键跑双模式矩阵（vivo V1838A / Android 10，`allowModeFallback=false`）→ 查看导出的 `dual_mode_matrix_summary_20260503_213835.md` 第 21 行与第 146-148 行 | 高 | 打开 |
-| T23-I03 | 执行 | 自定义 mock 任务 `mock_1777817569890` 被记录为 `SUCCESS`，最终答案声称“已成功打开计算器并计算出1+1=2”，但步骤明细并未完成 `1 + 1 =` 操作：在计算器内仅执行了 `AC`、`1`、`+`，随后 `获取屏幕信息` 已跳到应用内旧的 Run detail 页面，结论与实际观测不符 | Device Config → Mock 远端任务输入“打开计算器，计算一加一等于几”并运行；事后读取 `task_history` 中 `task_id=mock_1777817569890` 的步骤：第 31-39 步分别是点击 `AC`、`1`、`+`，缺少第二次 `1` 与 `=`；第 43 步屏幕信息已不在计算器，而是 ApkClaw 的 `Run detail` 页面 | 高 | 打开 |
+| T23-I03 | 执行 | 自定义 mock 任务 `mock_1777817569890` 被记录为 `SUCCESS`，最终答案声称“已成功打开计算器并计算出1+1=2”，但步骤明细并未完成 `1 + 1 =` 操作：在计算器内仅执行了 `AC`、`1`、`+`，随后 `获取屏幕信息` 已跳到应用内旧的 Run detail 页面，结论与实际观测不符。**根因**：`DefaultAgentService` 只要收到模型发出的 `finish` 就直接 `onComplete`，没有任何“目标页面/结果值”二次校验；而 2026-05-03 22:13:35 的 HTTP 日志显示模型在看到错误页面后，仍凭“之前应该已经算完了”直接调用了 `finish`。 | Device Config → Mock 远端任务输入“打开计算器，计算一加一等于几”并运行；事后读取 `task_history` 中 `task_id=mock_1777817569890` 的步骤：第 31-39 步分别是点击 `AC`、`1`、`+`，缺少第二次 `1` 与 `=`；第 43 步屏幕信息已不在计算器，而是 ApkClaw 的 `Run detail` 页面；同时检查 `cache/http_logs/20260503_221335394_POST.txt`，可见模型 reasoning 明确写了“虽然回到了这个应用，不过根据之前的计算步骤……现在可以调用 finish”。 | 高 | 打开 |
 
 ## 验收结论
 
