@@ -18,10 +18,10 @@
 
 ## 当前阶段
 
-- 当前阶段：Phase 2 — 模板与扩展（T18 已完成，推进 **T19**）
+- 当前阶段：Phase 2 — 稳定性与收敛（**T19 暂缓**，推进 **T20**）
 - 当前负责人：AI / 开发协作
 - 最后更新时间：2026-05-03
-- 下一步优先：**T19** 实现 `TemplateManager` 与模板快捷发起入口
+- 下一步优先：**T20** 补齐可靠性（超时、重试、取消、日志导出/追踪）；**T19** 模板功能按用户选择暂缓，保留待办
 
 ## 执行原则
 
@@ -57,11 +57,11 @@
 | T16 | 已完成 | 先落地微信 skill，验证消息发送/自动回复场景 | 微信 skill MVP | T15 | 2026-05-03 | Cursor | `assets/bundled_skills/wechat-basic` + `BundledSkillInstaller` 启动时装载；`Channel.WECHAT` 派发任务自动挂载 `skillIds=[wechat-basic]`；skill.md 说明 iLink/`finish`/通道回路与微信 App 前台自动化；Mock ZIP 内容与 assets 对齐；编译 `:app:compileDebugKotlin` 通过。**真机**验证需：配置 WeChat+iLink、`finish` 回推与「纯对话不写 UI」链路 |
 | T17 | 已完成 | 实现 `HistoryManager` 与 Room 表结构：任务摘要、步骤、截图、耗时、最终结果 | 历史存储层 | T07 | 2026-05-03 | Cursor | Room 2.7 + KSP 2.3.7；`task_history` / `task_history_step`；`HistoryManager` 单线程写入；`take_screenshot` 成功时复制 PNG 至 `files/task_history/{runId}/`；`TaskOrchestrator` 全流程挂钩；`pluginManagement` 优先 Maven Central 以解析 KSP。验证：`:app:compileDebugKotlin` 通过 |
 | T18 | 已完成 | 实现任务历史页与详情页：列表、步骤流、截图回放 | 历史页面 | T17 | 2026-05-03 | Cursor | `TaskHistoryListActivity` / `TaskHistoryDetailActivity`；首页卡片 + 设置 Device 首项入口；步骤卡片 + 横滑缩略显 + 全屏回看（Glide）；`recyclerview` 1.3.2。验证：`:app:compileDebugKotlin` 通过 |
-| T19 | 待办 | 实现 `TemplateManager` 与模板快捷发起入口 | 模板功能 | T17 | 2026-05-01 |  |  |
+| T19 | 待办 | 实现 `TemplateManager` 与模板快捷发起入口 | 模板功能 | T17 | 2026-05-03 |  | **暂缓**：用户确认先跳过；不阻塞主链路与 T20；后续若要收口集成验收（T23）再评估是否补做 |
 | T20 | 待办 | 补齐可靠性：任务超时、失败重试、任务取消、日志导出/追踪 | 稳定性与可观测性 | T07, T12, T18 | 2026-05-01 |  |  |
 | T21 | 待办 | 清理旧入口：弱化 `ChannelManager`，新建 `TaskSource` 主路径；下线旧 IM 渠道主入口 | 入口收敛 | T07, T11 | 2026-05-01 |  |  |
 | T22 | 待办 | 清理旧配置：移除本地 `OpenAI/Anthropic/BaseURL` 手工配置入口，仅保留 debug 能力 | 配置入口收敛 | T13 | 2026-05-01 |  |  |
-| T23 | 待办 | 完成集成验收：绑定、接单、执行、历史、设置五块主流程全量回归 | 验收记录与问题清单 | T16, T18, T19, T20, T21, T22 | 2026-05-01 |  |  |
+| T23 | 待办 | 完成集成验收：绑定、接单、执行、历史、设置五块主流程全量回归 | 验收记录与问题清单 | T16, T18, T19, T20, T21, T22 | 2026-05-03 |  | **T19 暂缓**时验收清单可先覆盖其余项，模板能力单独备注为「未交付/不适用」 |
 | T24 | 已完成 | 对齐 LangChain4j Skills Tool Mode：`activate_skill`/`read_skill_resource` + 技能目录 XML + 合并设备 ToolExecutor | `langchain4j-skills` 集成、`SkillAugmentation.mergedTools` | T14 | 2026-05-03 | Cursor | 依赖 `langchain4j-skills` 1.12.2-beta22；安装包生成 `SKILL.md`；`Skills.formatAvailableSkills` + `mergeDeviceAndSkills`；**与官方教程/version 的差异与限制**见 `docs/prd/Apkclaw-LangChain4j-Skills-与官方差异.md` |
 
 ## 更新记录
@@ -105,3 +105,4 @@
 | 2026-05-03 | Cursor | **T15**：`SkillRemoteLoader` 远端 ZIP 下载与 SHA-256 校验、`SkillManager.ensureSkillPackages` / `TaskOrchestrator` 前置装载、Mock `/api/v1/skills/*/meta|download`、`KVUtils` 技能包 checksum 缓存 |
 | 2026-05-03 | Cursor | **T17**：`HistoryManager` + Room（`ApkclawHistoryDatabase`）、步骤与截图路径、`TaskOrchestrator`/取消链路持久化；Gradle 引入 KSP 2.3.7、Room 2.7；`settings` 插件仓库优先 Central/Google |
 | 2026-05-03 | Cursor | **T18**：任务历史列表/详情 UI、截图横滑与全屏回放；首页与设置入口；依赖 `androidx.recyclerview` |
+| 2026-05-03 | Cursor | **T19 暂缓**：按用户选择先跳过模板能力；当前阶段切换为优先 **T20**；`T19`/`T23` 备注同步说明验收策略 |
