@@ -1,0 +1,6 @@
+[submodule "ApkClaw"]
+	path = ApkClaw
+	url = git@github.com:yannan/ApkClaw.git
+[submodule "AutoGLM-For-Android"]
+	path = AutoGLM-For-Android
+	url = git@github.com:yannan/AutoGLM-For-Android.git
