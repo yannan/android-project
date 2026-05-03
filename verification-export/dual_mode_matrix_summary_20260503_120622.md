@@ -1,0 +1,46 @@
+# Dual Mode Verification Matrix Summary
+
+- exportedAt: 2026-05-03 12:06:22
+- totalRuns: 12
+- allowModeFallback: false
+- device: vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys
+
+| Case | Mode | Fallback | Task ID | Terminal | Latest Message |
+| --- | --- | --- | --- | --- | --- |
+| tap | ACCESSIBILITY | false | local_direct | SUCCESS | tap(540,714), first=true, retry=false, taps=0->1, mode=ACCESSIBILITY, hasWindow=true, activePkg=com.apk.claw.android, gesture=completed |
+| tap | SHIZUKU | false | local_direct | SUCCESS | tap(540,714), first=true, retry=false, taps=0->1, mode=SHIZUKU |
+| swipe | ACCESSIBILITY | false | local_direct | SUCCESS | swipe(540,1970->540,1317), first=true, retry=false, scroll=0->629, mode=ACCESSIBILITY, hasWindow=true, activePkg=com.apk.claw.android, gesture=completed |
+| swipe | SHIZUKU | false | local_direct | SUCCESS | swipe(540,1970->540,1317), first=true, retry=false, scroll=0->705, mode=SHIZUKU |
+| open_app | ACCESSIBILITY | false | local_direct | SUCCESS | launchApp(com.android.bbkcalculator), home=true |
+| open_app | SHIZUKU | false | local_direct | SUCCESS | launchApp(com.android.bbkcalculator), home=true |
+| screenshot | ACCESSIBILITY | false | local_direct | FAILED | Accessibility screenshot requires Android 11+ (current SDK 29) |
+| screenshot | SHIZUKU | false | local_direct | SUCCESS | screenshot 1080x2340 |
+| key | ACCESSIBILITY | false | local_direct | SUCCESS | home=true, recent_apps=true, home_again=true |
+| key | SHIZUKU | false | local_direct | SUCCESS | home=true, recent_apps=true, home_again=true |
+| shell | ACCESSIBILITY | false | local_direct | SUCCESS | exitCode=0, stdout=10 |
+| shell | SHIZUKU | false | local_direct | SUCCESS | exitCode=0, stdout=10 |
+
+## Paste Into Validation Record
+
+| 日期 | 设备/ROM | 用例 | 请求模式 | fallback | 终态 | 页面观察 | 状态日志摘要 | 结论 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `tap` | `ACCESSIBILITY` | `false` | SUCCESS | 待补充 | tap(540,714), first=true, retry=false, taps=0->1, mode=ACCESSIBILITY, hasWindow=true, activePkg=com.apk.claw.android, gesture=completed | 待补充 |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `tap` | `SHIZUKU` | `false` | SUCCESS | 待补充 | tap(540,714), first=true, retry=false, taps=0->1, mode=SHIZUKU | 待补充 |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `swipe` | `ACCESSIBILITY` | `false` | SUCCESS | 待补充 | swipe(540,1970->540,1317), first=true, retry=false, scroll=0->629, mode=ACCESSIBILITY, hasWindow=true, activePkg=com.apk.claw.android, gesture=completed | 待补充 |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `swipe` | `SHIZUKU` | `false` | SUCCESS | 待补充 | swipe(540,1970->540,1317), first=true, retry=false, scroll=0->705, mode=SHIZUKU | 待补充 |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `open_app` | `ACCESSIBILITY` | `false` | SUCCESS | 待补充 | launchApp(com.android.bbkcalculator), home=true | 待补充 |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `open_app` | `SHIZUKU` | `false` | SUCCESS | 待补充 | launchApp(com.android.bbkcalculator), home=true | 待补充 |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `screenshot` | `ACCESSIBILITY` | `false` | FAILED | 待补充 | Accessibility screenshot requires Android 11+ (current SDK 29) | 待补充 |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `screenshot` | `SHIZUKU` | `false` | SUCCESS | 待补充 | screenshot 1080x2340 | 待补充 |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `key` | `ACCESSIBILITY` | `false` | SUCCESS | 待补充 | home=true, recent_apps=true, home_again=true | 待补充 |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `key` | `SHIZUKU` | `false` | SUCCESS | 待补充 | home=true, recent_apps=true, home_again=true | 待补充 |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `shell` | `ACCESSIBILITY` | `false` | SUCCESS | 待补充 | exitCode=0, stdout=10 | 待补充 |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `shell` | `SHIZUKU` | `false` | SUCCESS | 待补充 | exitCode=0, stdout=10 | 待补充 |
+
+## Fallback Record Template
+
+| 日期 | 设备/ROM | 请求模式 | fallback | 前置故障注入 | 终态 | 实际解析模式 | 结论 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-05-03 | vivo V1838A / Android 10 (SDK 29) / QP1A.190711.020 release-keys | `SHIZUKU` | `true` | 待补充 | 待补充 | 待补充 | 待补充 |
+
+## Raw Mock Statuses
