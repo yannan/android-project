@@ -18,10 +18,10 @@
 
 ## 当前阶段
 
-- 当前阶段：Phase 2 — 技能系统（T15 已完成，推进 T16）
+- 当前阶段：Phase 2 — 技能系统（T16 已完成，推进 T17）
 - 当前负责人：AI / 开发协作
 - 最后更新时间：2026-05-03
-- 下一步优先：**T16** 先落地微信 skill，验证消息发送/自动回复场景
+- 下一步优先：**T17** 实现 `HistoryManager` 与 Room 表结构（任务摘要、步骤、截图、耗时、最终结果）
 
 ## 执行原则
 
@@ -54,7 +54,7 @@
 | T13 | 已完成 | 实现 `RemoteAgentConfigProvider`：启动拉取、缓存回退、热更新 `TaskOrchestrator` 配置 | 远端模型配置能力 | T07 | 2026-05-03 | Cursor | `RemoteAgentConfigProvider`：`GET /api/v1/agent/config`、MMKV 缓存、`AppViewModel` 合并 local+缓存构建 `AgentConfig`；`afterInit`/`refreshDeviceGateway` 后台拉取；指纹变更时 `updateAgentConfig`；`KVUtils.hasLlmConfig` 支持缓存内 `apiKey`（Mock 扩展）；Mock HTTP 增加 `agent/config`；冷启动无 LLM 也走 `afterInit` 以便网关注册后拉取 |
 | T14 | 已完成 | 实现 `SkillManager`、`SkillRepository`、`SkillRenderer`，支持 `manifest.json + skill.md + assets` | 技能系统基础模块 | T13 | 2026-05-03 | Cursor | 交付本地技能目录、`installFromUnpacked`；与 **T24** 组合走 LangChain4j Skills Tool Mode；**T15** 已接 HTTP ZIP 装载 |
 | T15 | 已完成 | 接入技能下载与缓存：按 `skillPackageId` 下载、校验、装载；设备工具白名单仍由 manifest `allowedTools` 聚合（与 LC4j Skills `activate_skill` 并行存在） | 技能装载链路 | T14, T24 | 2026-05-03 | Cursor | `SkillRemoteLoader`：`GET meta` / `download`（或 meta.downloadUrl 同源 Bearer）、ZIP SHA-256 校验、ZIP -slip 解压、`KVUtils` 记录已装载 checksum、`SkillManager.ensureSkillPackages` 在编排前拉起；Mock 增补 `wechat-basic` zip 与 meta/download；任务在技能缺失且无法拉取时失败并报 `channel_msg_skill_packages_unavailable` |
-| T16 | 待办 | 先落地微信 skill，验证消息发送/自动回复场景 | 微信 skill MVP | T15 | 2026-05-01 |  |  |
+| T16 | 已完成 | 先落地微信 skill，验证消息发送/自动回复场景 | 微信 skill MVP | T15 | 2026-05-03 | Cursor | `assets/bundled_skills/wechat-basic` + `BundledSkillInstaller` 启动时装载；`Channel.WECHAT` 派发任务自动挂载 `skillIds=[wechat-basic]`；skill.md 说明 iLink/`finish`/通道回路与微信 App 前台自动化；Mock ZIP 内容与 assets 对齐；编译 `:app:compileDebugKotlin` 通过。**真机**验证需：配置 WeChat+iLink、`finish` 回推与「纯对话不写 UI」链路 |
 | T17 | 待办 | 实现 `HistoryManager` 与 Room 表结构：任务摘要、步骤、截图、耗时、最终结果 | 历史存储层 | T07 | 2026-05-01 |  |  |
 | T18 | 待办 | 实现任务历史页与详情页：列表、步骤流、截图回放 | 历史页面 | T17 | 2026-05-01 |  |  |
 | T19 | 待办 | 实现 `TemplateManager` 与模板快捷发起入口 | 模板功能 | T17 | 2026-05-01 |  |  |
@@ -103,3 +103,4 @@
 | 2026-05-03 | Cursor | 完成 T14：技能基础模块本地 manifest/skill.md 解析、仓库索引、`SkillRenderer` 聚合注入与 `allowedTools` 工具白名单；编译 `:app:compileDebugKotlin` 通过 |
 | 2026-05-03 | Cursor | 完成 **T24**：集成 `langchain4j-skills`（Agent Skills Tool Mode）；`Skills.formatAvailableSkills` + `mergeDeviceAndSkills`；`SkillAugmentation.mergedTools`；`SkillManager` 安装生成 `SKILL.md` |
 | 2026-05-03 | Cursor | **T15**：`SkillRemoteLoader` 远端 ZIP 下载与 SHA-256 校验、`SkillManager.ensureSkillPackages` / `TaskOrchestrator` 前置装载、Mock `/api/v1/skills/*/meta|download`、`KVUtils` 技能包 checksum 缓存 |
+| 2026-05-03 | Cursor | **T16**：内置 `bundled_skills/wechat-basic`、`BundledSkillInstaller`；微信 IM 派发自动带 `wechat-basic`；Mock ZIP 与 assets 对齐；交付自动回复/`finish`/缓冲说明文档化于 `skill.md` |
