@@ -18,10 +18,10 @@
 
 ## 当前阶段
 
-- 当前阶段：Phase 2 — 技能与历史（T17 已完成，推进 **T18**）
+- 当前阶段：Phase 2 — 模板与扩展（T18 已完成，推进 **T19**）
 - 当前负责人：AI / 开发协作
 - 最后更新时间：2026-05-03
-- 下一步优先：**T18** 任务历史页与详情页（列表、步骤流、截图回放）
+- 下一步优先：**T19** 实现 `TemplateManager` 与模板快捷发起入口
 
 ## 执行原则
 
@@ -56,7 +56,7 @@
 | T15 | 已完成 | 接入技能下载与缓存：按 `skillPackageId` 下载、校验、装载；设备工具白名单仍由 manifest `allowedTools` 聚合（与 LC4j Skills `activate_skill` 并行存在） | 技能装载链路 | T14, T24 | 2026-05-03 | Cursor | `SkillRemoteLoader`：`GET meta` / `download`（或 meta.downloadUrl 同源 Bearer）、ZIP SHA-256 校验、ZIP -slip 解压、`KVUtils` 记录已装载 checksum、`SkillManager.ensureSkillPackages` 在编排前拉起；Mock 增补 `wechat-basic` zip 与 meta/download；任务在技能缺失且无法拉取时失败并报 `channel_msg_skill_packages_unavailable` |
 | T16 | 已完成 | 先落地微信 skill，验证消息发送/自动回复场景 | 微信 skill MVP | T15 | 2026-05-03 | Cursor | `assets/bundled_skills/wechat-basic` + `BundledSkillInstaller` 启动时装载；`Channel.WECHAT` 派发任务自动挂载 `skillIds=[wechat-basic]`；skill.md 说明 iLink/`finish`/通道回路与微信 App 前台自动化；Mock ZIP 内容与 assets 对齐；编译 `:app:compileDebugKotlin` 通过。**真机**验证需：配置 WeChat+iLink、`finish` 回推与「纯对话不写 UI」链路 |
 | T17 | 已完成 | 实现 `HistoryManager` 与 Room 表结构：任务摘要、步骤、截图、耗时、最终结果 | 历史存储层 | T07 | 2026-05-03 | Cursor | Room 2.7 + KSP 2.3.7；`task_history` / `task_history_step`；`HistoryManager` 单线程写入；`take_screenshot` 成功时复制 PNG 至 `files/task_history/{runId}/`；`TaskOrchestrator` 全流程挂钩；`pluginManagement` 优先 Maven Central 以解析 KSP。验证：`:app:compileDebugKotlin` 通过 |
-| T18 | 待办 | 实现任务历史页与详情页：列表、步骤流、截图回放 | 历史页面 | T17 | 2026-05-01 |  |  |
+| T18 | 已完成 | 实现任务历史页与详情页：列表、步骤流、截图回放 | 历史页面 | T17 | 2026-05-03 | Cursor | `TaskHistoryListActivity` / `TaskHistoryDetailActivity`；首页卡片 + 设置 Device 首项入口；步骤卡片 + 横滑缩略显 + 全屏回看（Glide）；`recyclerview` 1.3.2。验证：`:app:compileDebugKotlin` 通过 |
 | T19 | 待办 | 实现 `TemplateManager` 与模板快捷发起入口 | 模板功能 | T17 | 2026-05-01 |  |  |
 | T20 | 待办 | 补齐可靠性：任务超时、失败重试、任务取消、日志导出/追踪 | 稳定性与可观测性 | T07, T12, T18 | 2026-05-01 |  |  |
 | T21 | 待办 | 清理旧入口：弱化 `ChannelManager`，新建 `TaskSource` 主路径；下线旧 IM 渠道主入口 | 入口收敛 | T07, T11 | 2026-05-01 |  |  |
@@ -104,3 +104,4 @@
 | 2026-05-03 | Cursor | 完成 **T24**：集成 `langchain4j-skills`（Agent Skills Tool Mode）；`Skills.formatAvailableSkills` + `mergeDeviceAndSkills`；`SkillAugmentation.mergedTools`；`SkillManager` 安装生成 `SKILL.md` |
 | 2026-05-03 | Cursor | **T15**：`SkillRemoteLoader` 远端 ZIP 下载与 SHA-256 校验、`SkillManager.ensureSkillPackages` / `TaskOrchestrator` 前置装载、Mock `/api/v1/skills/*/meta|download`、`KVUtils` 技能包 checksum 缓存 |
 | 2026-05-03 | Cursor | **T17**：`HistoryManager` + Room（`ApkclawHistoryDatabase`）、步骤与截图路径、`TaskOrchestrator`/取消链路持久化；Gradle 引入 KSP 2.3.7、Room 2.7；`settings` 插件仓库优先 Central/Google |
+| 2026-05-03 | Cursor | **T18**：任务历史列表/详情 UI、截图横滑与全屏回放；首页与设置入口；依赖 `androidx.recyclerview` |
