@@ -90,7 +90,8 @@
 
 | ID | 模块（绑定/接单/执行/历史/设置） | 现象 | 复现步骤 | 严重级别 | 状态 |
 | --- | --- | --- | --- | --- | --- |
-| | | | | | |
+| T23-I01 | 执行 | `dual_mode_matrix_summary_20260503_213835.md` 中 `screenshot / ACCESSIBILITY` 汇总行为 `SUCCESS`，但 raw status 明确显示 `[截屏{}]：失败`，最终说明为 Android 10 不支持该能力，属于“任务完成”与“用例通过”混淆 | Device Config → 一键跑双模式矩阵（vivo V1838A / Android 10，`allowModeFallback=false`）→ 查看导出的 `dual_mode_matrix_summary_20260503_213835.md` 第 16 行与第 97-101 行 | 中 | 打开 |
+| T23-I02 | 执行 | `dual_mode_matrix_summary_20260503_213835.md` 中 `shell / SHIZUKU` 汇总行为 `SUCCESS`，但 raw status 明确显示“当前可用工具中无执行 shell 命令的功能”，说明矩阵汇总未区分能力缺失与任务终态 | Device Config → 一键跑双模式矩阵（vivo V1838A / Android 10，`allowModeFallback=false`）→ 查看导出的 `dual_mode_matrix_summary_20260503_213835.md` 第 21 行与第 146-148 行 | 高 | 打开 |
 
 ## 验收结论
 
